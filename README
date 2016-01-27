@@ -1,0 +1,13 @@
+		Welcome to Master mind
+Rules
+1. Valid Color Code (case insensitive)
+R - Red		 G - Green	 B - Blue
+Y - yellow	 V - Violet	 P - Pink
+
+2. Computer makes the code with any of the 4 color code above.
+
+3. You try and break the code within 10 moves
+
+4. Computer provies feedback on each guess.
+	-white - Number of correct color in correct position
+	-dark  - Number of correct color in wrong position
