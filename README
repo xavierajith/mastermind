@@ -11,3 +11,9 @@ Y - yellow	 V - Violet	 P - Pink
 4. Computer provies feedback on each guess.
 	-white - Number of correct color in correct position
 	-dark  - Number of correct color in wrong position
+
+Instructions
+------------
+1. Clone the repository
+2. Do make to generate the executable
+3. Run the executable. (./game)
