@@ -18,6 +18,9 @@ int mm::help()
     cout << "***************************************************************" << endl;
 }
 
+/*Returns 1 if the guess contains invalid colors. guess
+is checked through the colors maps to see if it is a 
+valid color*/
 int mm::validColors(char* guess)
 {
     int i;
@@ -31,6 +34,8 @@ int mm::validColors(char* guess)
     return 1;
 }
 
+/*Called before start of every game to generate random
+code and state initializations*/
 int mm::init()
 {
     int i = 0;
@@ -46,9 +51,11 @@ int mm::init()
     moves = 0;
 }
 
+/*Checks if the guessed code is correct or not.
+Returns 1 if the game is won*/
 int mm::predict(char* guess)
 {
-    int map[4] = {0, 0, 0, 0}, i = 0, j = 0;
+    int i, j;
     onlist = 0;
     hits = 0;
 
@@ -56,29 +63,38 @@ int mm::predict(char* guess)
     moves++;
 
     for (i = 0; i < 4; i++) {
+	hitmap[i] = 0;
+	map[i] = 0;
+    }
+
+    for (i = 0; i < 4; i++) {
 	if ( code[i] == toupper(guess[i])) {
 	    hits++;
+	    hitmap[i] = 1;
 	    map[i] = 1;
 	}
     }
     if (hits == 4) {
-	return 0;
+	return 1;
     }
 
     for (i = 0; i < 4; i++) {
-	for (j = 0; j < 4; j++) {
-	    if (!map[j]) {
-		if (toupper(guess[i]) == code[j]) {
-		    onlist++;
-		    map[j] = 1;
+	if (!hitmap[i]) {
+	    for (j = 0; j < 4; j++) {
+	    	if (!map[j]) {
+		    if (toupper(guess[i]) == code[j]) {
+		    	onlist++;
+		    	map[j] = 1;
+		    }
 		}
 	    }			
 	}    
     }
 
-    return 2;
+    return 0;
 }
 
+/*Manages the state of the game.*/
 int mm::play()
 {
     char guess[10];
@@ -102,13 +118,14 @@ int mm::play()
 	    continue;
         }
 
-	if (predict(guess) == 0) {
+	if (predict(guess)) {
 	    cout << "You won in " << moves << " moves" << endl;
 	    break;
 	}
 
 	if (!guessLeft) {
 	    cout << "You lost!!! Out of moves" << endl;
+	    cout << "Real Code " << code << endl;
 	    break;
 	}
 	cout << "White: " << hits << " Dark : " << onlist << endl;
