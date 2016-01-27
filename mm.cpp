@@ -67,17 +67,20 @@ int mm::predict(char* guess)
 	map[i] = 0;
     }
 
+    /*Check for direct hits*/
     for (i = 0; i < 4; i++) {
-	if ( code[i] == toupper(guess[i])) {
+	if (code[i] == toupper(guess[i])) {
 	    hits++;
 	    hitmap[i] = 1;
 	    map[i] = 1;
 	}
     }
+    /*Player wins if 4 hits*/
     if (hits == 4) {
 	return 1;
     }
 
+    /*Calculates the correctness of guess*/
     for (i = 0; i < 4; i++) {
 	if (!hitmap[i]) {
 	    for (j = 0; j < 4; j++) {
